@@ -3,7 +3,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "allowJs": true,
+    "types": [
+      "cypress"
+    ]
   },
   "files": [
     "src/main.ts"
