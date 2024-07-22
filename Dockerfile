@@ -6,6 +6,8 @@ WORKDIR /app
 # Copy only the package.json and package-lock.json to the working directory
 COPY payoneer/package*.json ./
 
+# Install dependencies and Angular CLI
+RUN npm install -g @angular/cli
 # Install dependencies
 RUN npm install
 
