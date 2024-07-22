@@ -3,7 +3,7 @@ name: CI - Build and Test
 on:
   pull_request:
     branches:
-      - master  # Run CI on PRs targeting the main branch
+      - master  # Trigger CI on PRs targeting the main branch
 
 jobs:
   build:
@@ -16,20 +16,26 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: enter to payoneer Project
-        run: cd payoneer
+
+      - name: Set working directory
+        working-directory: payoneer
 
       - name: Install dependencies
         run: npm install
+        working-directory: payoneer
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+        working-directory: payoneer
 
       - name: Build Angular app
-        run: ng build
+        run: ng build --prod
+        working-directory: payoneer
 
       - name: Run unit tests
         run: ng test --watch=false --browsers=ChromeHeadless
+        working-directory: payoneer
 
       - name: Run end-to-end tests
         run: ng e2e --protractor-config=e2e/protractor.conf.js
+        working-directory: payoneer
