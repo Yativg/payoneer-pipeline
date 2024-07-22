@@ -3,18 +3,19 @@ FROM node:18 AS build
 
 WORKDIR /app
 
+# Copy only the package.json and package-lock.json to the working directory
+COPY payoneer/package*.json ./
+
 # Install dependencies and Angular CLI
 RUN npm install -g @angular/cli
-
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
+# Copy the rest of the Angular project
+COPY payoneer/ ./
 
 # Build the Angular application
-RUN ng build --prod
+RUN ng build
 
 # Stage 2: Serve the Angular app
 FROM nginx:alpine
