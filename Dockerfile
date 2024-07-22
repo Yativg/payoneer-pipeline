@@ -1,13 +1,18 @@
 # Stage 1: Build the Angular app
 FROM node:18 AS build
 
-WORKDIR /payoneer
+WORKDIR /payoneer/
 
 # Install dependencies and Angular CLI
 RUN npm install -g @angular/cli
 
 # Copy package.json and package-lock.json
-COPY package.json ./
+COPY package*.json ./
+
+RUN ls
+
+RUN pwd
+
 RUN npm install
 
 # Copy the rest of the application code
