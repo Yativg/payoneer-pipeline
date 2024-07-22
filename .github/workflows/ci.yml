@@ -26,7 +26,7 @@ jobs:
         working-directory: payoneer
 
       - name: Build Angular app
-        run: ng build --prod
+        run: ng build
         working-directory: payoneer
 
       - name: Run unit tests
