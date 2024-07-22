@@ -4,8 +4,7 @@ on:
   pull_request:
     branches:
       - master  # Run CI on PRs targeting the main branch
-  check_run:
-    types: [retest]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,12 +16,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - name: enter to payoneer Project
+        run: cd payoneer
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
       - name: Build Angular app
-        run: ng build --prod
+        run: ng build
 
       - name: Run unit tests
         run: ng test --watch=false --browsers=ChromeHeadless
