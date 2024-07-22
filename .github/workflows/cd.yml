@@ -3,7 +3,7 @@ name: CD - Deploy Docker Image
 on:
   push:
     branches:
-      - main  # Run CD on push to the main branch
+      - master  # Run CD on push to the main branch
 
 jobs:
   deploy:

@@ -3,7 +3,7 @@ name: CI - Build and Test
 on:
   pull_request:
     branches:
-      - main  # Run CI on PRs targeting the main branch
+      - master  # Run CI on PRs targeting the main branch
 
 jobs:
   build:
