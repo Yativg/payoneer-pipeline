@@ -9,7 +9,7 @@ on:
 
 jobs:
   ci-pipeline:
-    if: contains(github.event.comment.body, '/retest')
+    if: github.event.issue.pull_request && contains(github.event.comment.body, 'retest')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
