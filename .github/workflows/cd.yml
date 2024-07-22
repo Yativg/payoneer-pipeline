@@ -6,7 +6,7 @@ on:
       - main  # Run CD on push to the main branch
 
 jobs:
-  deploy:
+  cd-pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
