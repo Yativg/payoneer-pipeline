@@ -3,7 +3,7 @@ name: CI - Build and Test
 on:
   pull_request:
     branches:
-      - master  # Trigger CI on PRs targeting the main branch
+      - master  # Run CI on PRs targeting the main branch
 
 jobs:
   build:
@@ -16,9 +16,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Set working directory
-        working-directory: payoneer
 
       - name: Install dependencies
         run: npm install
