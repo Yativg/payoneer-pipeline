@@ -4,9 +4,12 @@ on:
   pull_request:
     branches:
       - master  # Run CI on PRs targeting the main branch
+  issue_comment:
+    types: [created]
 
 jobs:
-  build:
+  ci-pipeline:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, 'retest')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,6 +34,10 @@ jobs:
 
       - name: Run unit tests
         run: ng test --watch=false --browsers=ChromeHeadless
+        working-directory: payoneer
+
+      - name: add Cypress
+        run: ng add @cypress/schematic
         working-directory: payoneer
 
       - name: Run end-to-end tests
