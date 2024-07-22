@@ -1,0 +1,33 @@
+name: CI - Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main  # Run CI on PRs targeting the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Build Angular app
+        run: ng build --prod
+
+      - name: Run unit tests
+        run: ng test --watch=false --browsers=ChromeHeadless
+
+      - name: Run end-to-end tests
+        run: ng e2e --protractor-config=e2e/protractor.conf.js

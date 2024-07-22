@@ -1,0 +1,42 @@
+---
+- name: Install Docker
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Clean YUM cache
+      command: yum clean all
+      register: yum_clean_result
+
+    - name: Display YUM clean result
+      debug:
+        var: yum_clean_result
+
+    - name: Add Docker repository
+      command: >
+        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: Install Docker packages
+      yum:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present 
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Verify Docker installation by running hello-world container
+      command: docker run hello-world
+      register: result
+      ignore_errors: yes
+
+    - name: Display hello-world result
+      debug:
+        var: result.stdout
