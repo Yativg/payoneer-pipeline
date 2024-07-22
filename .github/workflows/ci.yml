@@ -28,6 +28,10 @@ jobs:
         run: npm install -g @angular/cli
         working-directory: payoneer
 
+      - name: Development server
+        run: ng serve
+        working-directory: payoneer
+
       - name: Build Angular app
         run: ng build
         working-directory: payoneer
