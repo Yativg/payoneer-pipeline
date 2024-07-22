@@ -37,7 +37,7 @@ jobs:
         working-directory: payoneer
 
       - name: add Cypress
-        run: ng add @cypress/schematic
+        run: ng add @cypress/schematic --skip-confirmation
         working-directory: payoneer
 
       - name: Run end-to-end tests
