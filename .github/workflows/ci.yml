@@ -34,5 +34,5 @@ jobs:
         working-directory: payoneer
 
       - name: Run end-to-end tests
-        run: ng e2e --protractor-config=e2e/protractor.conf.js
+        run: ng e2e
         working-directory: payoneer
