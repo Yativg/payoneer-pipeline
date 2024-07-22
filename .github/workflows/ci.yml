@@ -4,9 +4,12 @@ on:
   pull_request:
     branches:
       - master  # Run CI on PRs targeting the main branch
+  issue_comment:
+    types: [created]
 
 jobs:
   ci-pipeline:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, 'retest')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
