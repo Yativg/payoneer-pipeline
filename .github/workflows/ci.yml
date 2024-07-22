@@ -3,13 +3,15 @@ name: CI - Build and Test
 on:
   pull_request:
     branches:
-      - master  # Run CI on PRs targeting the main branch
+      - master  
   issue_comment:
     types: [created]
 
 jobs:
   ci-pipeline:
-    if: github.event.issue.pull_request && contains(github.event.comment.body, 'retest')
+    if: |
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, 'retest')) ||
+      (github.event_name == 'pull_request')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,10 +30,6 @@ jobs:
         run: npm install -g @angular/cli
         working-directory: payoneer
 
-      - name: Development server
-        run: ng serve
-        working-directory: payoneer
-
       - name: Build Angular app
         run: ng build
         working-directory: payoneer
@@ -41,7 +39,7 @@ jobs:
         working-directory: payoneer
 
       - name: add Cypress
-        run: ng add @cypress/schematic --skip-confirmation
+        run: ng add @cypress/schematic --e2e --component --skip-confirmation
         working-directory: payoneer
 
       - name: Run end-to-end tests
