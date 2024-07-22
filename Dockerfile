@@ -14,6 +14,8 @@ RUN npm install
 # Copy the rest of the Angular project
 COPY payoneer/ ./
 
+RUN ng serve
+RUN ng generate component payoneer
 # Build the Angular application
 RUN ng build
 

@@ -28,6 +28,10 @@ jobs:
         run: npm install -g @angular/cli
         working-directory: payoneer
 
+      - name: Development server
+        run: ng serve
+        working-directory: payoneer
+
       - name: Build Angular app
         run: ng build
         working-directory: payoneer
@@ -37,7 +41,7 @@ jobs:
         working-directory: payoneer
 
       - name: add Cypress
-        run: ng add @cypress/schematic
+        run: ng add @cypress/schematic --skip-confirmation
         working-directory: payoneer
 
       - name: Run end-to-end tests
