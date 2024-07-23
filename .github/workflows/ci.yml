@@ -25,6 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm install
         working-directory: payoneer
+        
+      - name: add Cypress
+        run: ng add @cypress/schematic --e2e --component --skip-confirmation
+        working-directory: payoneer
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
@@ -36,10 +40,6 @@ jobs:
 
       - name: Run unit tests
         run: ng test --watch=false --browsers=ChromeHeadless
-        working-directory: payoneer
-
-      - name: add Cypress
-        run: ng add @cypress/schematic --e2e --component --skip-confirmation
         working-directory: payoneer
 
       - name: Run end-to-end tests
