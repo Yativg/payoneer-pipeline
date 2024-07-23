@@ -11,6 +11,8 @@ RUN npm install -g @angular/cli
 # Install dependencies
 RUN npm install
 
+RUN ng add @cypress/schematic --e2e --component --skip-confirmation
+
 # Copy the rest of the Angular project
 COPY payoneer/ ./
 
