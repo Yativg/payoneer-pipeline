@@ -1,7 +1,7 @@
 # Stage 1: Build the Angular app
 FROM node:18 AS build
 
-WORKDIR /payoneer
+WORKDIR /home/centos
 
 # Copy only the package.json and package-lock.json to the working directory
 COPY payoneer/package*.json ./
