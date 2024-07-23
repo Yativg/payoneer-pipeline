@@ -18,15 +18,7 @@ COPY payoneer/ ./
 # Build the Angular application
 RUN ng build --
 
-# Stage 2: Serve the Angular app
-FROM nginx:alpine
 
-# Remove default Nginx static assets
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy the built Angular app from the previous stage
-COPY --from=build /app/dist/ /usr/share/nginx/html
-
-EXPOSE 80
+EXPOSE 4200
 
 CMD ["nginx", "-g", "daemon off;"]
