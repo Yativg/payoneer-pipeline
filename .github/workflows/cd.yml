@@ -23,7 +23,7 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker tag payoneer-app:lastest payoneer/payoneer-app:latest
+          docker tag payoneer-app:latest payoneer/payoneer-app:latest
           docker push payoneer/payoneer-app:latest
 
       - name: Deploy to VM
