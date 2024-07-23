@@ -36,8 +36,8 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no centos@52.59.222.15 << 'EOF'
-            docker pull yativg/payoneer-app:latest
-            docker stop payoneer-app || true
-            docker rm payoneer-app || true
-            docker run -d --name payoneer-app -p 80:80 yativg/payoneer-app:latest
+            sudo docker pull yativg/payoneer-app:latest
+            sudo docker stop payoneer-app || true
+            sudo docker rm payoneer-app || true
+            sudo docker run -d --name payoneer-app -p 80:80 yativg/payoneer-app:latest
           EOF
