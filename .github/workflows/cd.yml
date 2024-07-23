@@ -41,5 +41,5 @@ jobs:
               sudo docker stop payoneer-app
               sudo docker rm payoneer-app
             fi
-            sudo docker run -d --name payoneer-app -p 80:80 yativg/payoneer-app:latest
+            sudo docker run -d --name payoneer-app -p 4200:80 yativg/payoneer-app:latest
           EOF
