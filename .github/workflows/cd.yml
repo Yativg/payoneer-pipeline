@@ -26,6 +26,9 @@ jobs:
           docker tag payoneer-app:latest yativg/payoneer-app:latest
           docker push yativg/payoneer-app:latest
 
+      - name: Create .ssh directory
+        run: mkdir -p ~/.ssh
+
       - name: Deploy to VM
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
