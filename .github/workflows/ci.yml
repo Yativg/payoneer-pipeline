@@ -29,7 +29,7 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
         working-directory: payoneer
-        
+         
       - name: add Cypress
         run: ng add @cypress/schematic --e2e --component --skip-confirmation
         working-directory: payoneer
