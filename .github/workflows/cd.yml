@@ -23,8 +23,8 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker tag payoneer yativg/payoneer-app:latest
-          docker push yativg/payoneer-app:latest
+          docker tag payoneer payoneer/payoneer-app:latest
+          docker push payoneer/payoneer-app:latest
 
       - name: Deploy to VM
         env:
@@ -33,8 +33,8 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no centos@52.59.222.15 << 'EOF'
-            docker pull yativg/payoneer-app:latest
+            docker pull payoneer/payoneer-app:latest
             docker stop payoneer-app || true
             docker rm payoneer-app || true
-            docker run -d --name payoneer-app -p 80:80yativg/payoneer-app:latest
+            docker run -d --name payoneer-app -p 80:80 payoneer/payoneer-app:latest
           EOF
