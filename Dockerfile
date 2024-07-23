@@ -1,7 +1,7 @@
 # Stage 1: Build the Angular app
 FROM node:18 AS build
 
-WORKDIR /home/centos
+WORKDIR /app
 
 # Copy only the package.json and package-lock.json to the working directory
 COPY payoneer/package*.json ./
@@ -16,10 +16,13 @@ RUN npm i -D @types/cypress@latest
 COPY payoneer/ ./
 
 # Build the Angular application
-RUN ng build
+RUN ng build --
 
 # Stage 2: Serve the Angular app
 FROM nginx:alpine
+
+# Remove default Nginx static assets
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built Angular app from the previous stage
 COPY --from=build /app/dist/ /usr/share/nginx/html
