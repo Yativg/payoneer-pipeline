@@ -37,7 +37,9 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no centos@52.59.222.15 << 'EOF'
             sudo docker pull yativg/payoneer-app:latest
-            sudo docker stop payoneer-app || true
-            sudo docker rm payoneer-app || true
+            if [ "$(sudo docker ps -aq -f name=payoneer-app)" ]; then
+              sudo docker stop payoneer-app
+              sudo docker rm payoneer-app
+            fi
             sudo docker run -d --name payoneer-app -p 80:80 yativg/payoneer-app:latest
           EOF
