@@ -29,6 +29,41 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
         working-directory: payoneer
+name: CI - Build and Test
+
+on:
+  pull_request:
+    branches:
+      - master  
+  issue_comment:
+    types: [created]
+
+jobs:
+  ci-pipeline:
+    if: |
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, 'retest')) ||
+      (github.event_name == 'pull_request')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: payoneer
+
+      - name: add Cypress
+        run: ng add @cypress/schematic --e2e --component --skip-confirmation
+        working-directory: payoneer
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+        working-directory: payoneer
 
       - name: Build Angular app
         run: ng build
@@ -38,10 +73,18 @@ jobs:
         run: ng test --watch=false --browsers=ChromeHeadless
         working-directory: payoneer
 
-      - name: add Cypress
-        run: ng add @cypress/schematic --e2e --component --skip-confirmation
+      - name: Run end-to-end tests
+        run: ng run payoneer:cypress-run
+        working-directory: payoneer
+
+      - name: Build Angular app
+        run: ng build
+        working-directory: payoneer
+
+      - name: Run unit tests
+        run: ng test --watch=false --browsers=ChromeHeadless
         working-directory: payoneer
 
       - name: Run end-to-end tests
-        run: ng e2e
+        run: ng run payoneer:cypress-run
         working-directory: payoneer
